@@ -1,21 +1,38 @@
 {
-  "currentPhase": 1,
-  "phaseName": "Proof of Concept",
+  "currentPhase": 2,
+  "phaseName": "MVP - First Real Users",
   "status": "in_progress",
   "startedAt": "2026-05-18",
   "completedAt": null,
-  "completedPhases": [],
-  "notes": "Building hardcoded voice interview to prove concept works",
-  "learnings": [],
-  "nextSteps": [
-    "Understand Realtime API architecture (ephemeral token flow)",
-    "Implement WebSocket connection to OpenAI Realtime API",
-    "Implement audio capture (PCM16 from browser microphone)",
-    "Stream audio chunks to OpenAI via WebSocket",
-    "Play received audio deltas through AudioContext",
-    "Handle transcript events and display live"
+  "completedPhases": [
+    {
+      "phase": 1,
+      "phaseName": "Proof of Concept",
+      "completedAt": "2026-05-18",
+      "summary": "Working voice interview with OpenAI Realtime API"
+    }
   ],
-  "challenges": [],
+  "notes": "Phase 1 complete — voice pipeline fully working. Moving to MVP: auth, DB persistence, evaluation, deploy.",
+  "learnings": [
+    "Realtime API uses ephemeral tokens (clientSecret) via /api/session — never expose OpenAI key to browser",
+    "AudioWorklet runs on audio render thread — postMessage with ArrayBuffer transfer (zero-copy) to main thread",
+    "PCM16 conversion: Float32 samples * 32768, clamped to [-32768, 32767]",
+    "Buffer audio at ~100ms (2400 samples at 24kHz) before sending to WebSocket — 128-sample chunks is too frequent",
+    "Scheduled playback: source.start(nextPlayTime) prevents audio delta overlap; advance nextPlayTime by buffer.duration",
+    "AudioContext lazy init in playAudioDelta means capture and playback share same 24kHz context"
+  ],
+  "nextSteps": [
+    "Add Clerk auth (boilerplate)",
+    "Design DB schema: interview_sessions + transcript_entries tables",
+    "Save transcript to DB when interview ends",
+    "Build post-interview evaluation prompt (AI-guided learning)",
+    "Show evaluation results page",
+    "Deploy to Vercel"
+  ],
+  "challenges": [
+    "Audio deltas played simultaneously — fixed with scheduled playback queue (nextPlayTimeRef)",
+    "AudioWorklet firing too fast (187 msg/s) — fixed with 100ms buffer accumulation in worklet"
+  ],
   "experiments": [],
   "roadmap": "See AGILE_ROADMAP.md for full phased plan"
 }

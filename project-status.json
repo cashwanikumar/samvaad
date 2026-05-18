@@ -1,0 +1,21 @@
+{
+  "currentPhase": 1,
+  "phaseName": "Proof of Concept",
+  "status": "in_progress",
+  "startedAt": "2026-05-18",
+  "completedAt": null,
+  "completedPhases": [],
+  "notes": "Building hardcoded voice interview to prove concept works",
+  "learnings": [],
+  "nextSteps": [
+    "Understand Realtime API architecture (ephemeral token flow)",
+    "Implement WebSocket connection to OpenAI Realtime API",
+    "Implement audio capture (PCM16 from browser microphone)",
+    "Stream audio chunks to OpenAI via WebSocket",
+    "Play received audio deltas through AudioContext",
+    "Handle transcript events and display live"
+  ],
+  "challenges": [],
+  "experiments": [],
+  "roadmap": "See AGILE_ROADMAP.md for full phased plan"
+}

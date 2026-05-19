@@ -128,7 +128,7 @@ export default function SessionPage() {
             <div key={key} className="bg-gray-900 border border-gray-800 rounded-xl p-4">
               <p className="text-gray-500 text-xs mb-2">{label}</p>
               <p className={`text-2xl font-bold ${scoreColor(evaluation[key as keyof Evaluation] as number)}`}>
-                {evaluation[key as keyof Evaluation]}<span className="text-gray-600 text-base font-normal">/5</span>
+                {evaluation[key as keyof Evaluation] as number}<span className="text-gray-600 text-base font-normal">/5</span>
               </p>
             </div>
           ))}

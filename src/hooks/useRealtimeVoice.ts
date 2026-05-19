@@ -16,6 +16,7 @@ export function useRealtimeVoice() {
   const workletNodeRef = useRef<AudioWorkletNode | null>(null);
   const aiTranscriptRef = useRef<string>("");
   const nextPlayTimeRef = useRef<number>(0);
+  const startedAtRef = useRef<number | null>(null);
 
   // TODO: Implement this helper — appends a transcript entry
   // Hint: use crypto.randomUUID() for the id, Date.now() for timestamp
@@ -27,7 +28,7 @@ export function useRealtimeVoice() {
           id: crypto.randomUUID(),
           role,
           content,
-          timestamp: Date.now()
+          timestamp: Date.now() - (startedAtRef.current ?? Date.now())
         }
       ]))
     },
@@ -169,6 +170,7 @@ export function useRealtimeVoice() {
     setStatus("connecting");
     setError(null);
     setTranscript([]);
+    startedAtRef.current = Date.now();
 
     try {
       // Step 1: Get ephemeral token from our API route
@@ -213,6 +215,7 @@ export function useRealtimeVoice() {
     status,
     transcript,
     error,
+    startedAt: startedAtRef,
     startInterview,
     endInterview,
   };

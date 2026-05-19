@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 import { useRealtimeVoice } from "@/hooks/useRealtimeVoice";
 import type { SessionStatus } from "@/types/realtime";
 
@@ -16,8 +19,27 @@ const statusConfig: Record<
 };
 
 export default function InterviewPage() {
-  const { status, transcript, error, startInterview, endInterview } =
+  const { status, transcript, error, startedAt, startInterview, endInterview } =
     useRealtimeVoice();
+  const router = useRouter();
+  const savedRef = useRef(false);
+
+  useEffect(() => {
+    if (status !== "ended" || savedRef.current) return;
+    savedRef.current = true;
+
+    axios
+      .post<{ sessionId: string }>("/api/sessions", {
+        topic: "WhatsApp or a similar real-time messaging system",
+        transcript,
+        startedAt: startedAt.current ?? Date.now(),
+      })
+      .then(({ data }) => {
+        axios.post("/api/evaluate", { sessionId: data.sessionId }).catch(console.error);
+        router.push(`/sessions/${data.sessionId}`);
+      })
+      .catch(console.error);
+  }, [status]);
 
   const { label, color, pulse } = statusConfig[status];
   const isActive = status === "listening" || status === "ai-speaking";

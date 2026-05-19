@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1779160183649,
+      "tag": "0000_whole_queen_noir",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1779163560068,
+      "tag": "0001_white_blindfold",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1779163834231,
+      "tag": "0002_cloudy_morph",
+      "breakpoints": true
+    }
+  ]
+}

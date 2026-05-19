@@ -1,0 +1,1 @@
+ALTER TABLE "transcript_entries" ALTER COLUMN "timestamp_ms" SET DATA TYPE bigint;

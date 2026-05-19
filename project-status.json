@@ -12,27 +12,52 @@
       "summary": "Working voice interview with OpenAI Realtime API"
     }
   ],
-  "notes": "Phase 1 complete — voice pipeline fully working. Moving to MVP: auth, DB persistence, evaluation, deploy.",
+  "notes": "Phase 2 nearly complete. Auth, DB, evaluation, results page all working. Only deploy remaining.",
   "learnings": [
     "Realtime API uses ephemeral tokens (clientSecret) via /api/session — never expose OpenAI key to browser",
     "AudioWorklet runs on audio render thread — postMessage with ArrayBuffer transfer (zero-copy) to main thread",
     "PCM16 conversion: Float32 samples * 32768, clamped to [-32768, 32767]",
     "Buffer audio at ~100ms (2400 samples at 24kHz) before sending to WebSocket — 128-sample chunks is too frequent",
     "Scheduled playback: source.start(nextPlayTime) prevents audio delta overlap; advance nextPlayTime by buffer.duration",
-    "AudioContext lazy init in playAudioDelta means capture and playback share same 24kHz context"
+    "AudioContext lazy init in playAudioDelta means capture and playback share same 24kHz context",
+    "Evaluation rubric: 4 dimensions (Problem Scoping, Core System Flow, Reliability, Communication) with 1/3/5 behavioral anchors",
+    "Evidence before score: forces model to collect timestamped quotes before committing to a number — prevents gut-score rationalization",
+    "Temperature 0 for evaluation: removes score drift but not classification variance in free-form steps",
+    "Pre-scan + relevant_dimensions array: ensures early/scattered signals are not missed across dimensions",
+    "Transcript saved as jsonb on interview_sessions — simpler than separate rows for Phase 2; sufficient for evaluation and display",
+    "timestamp in TranscriptEntry is ms elapsed since interview start (not Date.now) — format to [MM:SS] at evaluation time",
+    "Evaluation fires and forgets after session save — results page polls every 3s until evaluation lands",
+    "Store raw evaluation JSON in DB alongside extracted scores — preserves rationale and evidence for display without re-calling LLM"
+  ],
+  "trackA_complete": [
+    "Clerk auth — /interview protected, userId attached to all sessions",
+    "DB schema: interview_sessions (transcript jsonb) + evaluations tables",
+    "POST /api/sessions — saves session + transcript as JSON",
+    "POST /api/evaluate — fetches transcript, calls OpenAI at temp 0, saves scores + rawResult",
+    "GET /api/sessions/[sessionId] — returns session + evaluation for results page",
+    "Results page /sessions/[sessionId] — polls for evaluation, shows scores, rationale, transcript"
+  ],
+  "trackB_complete": [
+    "Evaluation rubric: 4 dimensions with behavioral anchors",
+    "Prompt iterated for consistency (temperature 0, 3 runs identical)",
+    "Pre-scan fixed missing early evidence",
+    "Cross-dimension evidence via relevant_dimensions array fixed score undercount",
+    "Prompt stored in src/lib/prompts/evaluation.ts as buildEvaluationPrompt(topic)"
   ],
   "nextSteps": [
-    "Add Clerk auth (boilerplate)",
-    "Design DB schema: interview_sessions + transcript_entries tables",
-    "Save transcript to DB when interview ends",
-    "Build post-interview evaluation prompt (AI-guided learning)",
-    "Show evaluation results page",
-    "Deploy to Vercel"
+    "Deploy to Vercel (Neon or Vercel Postgres for prod DB)"
   ],
   "challenges": [
     "Audio deltas played simultaneously — fixed with scheduled playback queue (nextPlayTimeRef)",
-    "AudioWorklet firing too fast (187 msg/s) — fixed with 100ms buffer accumulation in worklet"
+    "AudioWorklet firing too fast (187 msg/s) — fixed with 100ms buffer accumulation in worklet",
+    "LLM missed early evidence ([00:05]) — fixed with pre-scan step before dimension scoring",
+    "primary_dimension siloed cross-cutting statements — fixed with relevant_dimensions array + explicit filter instruction",
+    "timestamp_ms was integer (32-bit overflow) — changed to store ms-since-start as bigint, then dropped in favour of jsonb transcript",
+    "transcript_entries rows per message — replaced with single jsonb column on interview_sessions",
+    "Local postgres intercepting port 5432 before Docker — used local postgres directly via createdb"
   ],
-  "experiments": [],
+  "experiments": [
+    "Evaluation prompt: 6 iterations from basic rubric to pre-scan + cross-dimension evidence; Reliability score moved from 4 to correct 5"
+  ],
   "roadmap": "See AGILE_ROADMAP.md for full phased plan"
 }

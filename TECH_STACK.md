@@ -6,6 +6,7 @@
 - **Database:** PostgreSQL (Docker local, managed prod)
 - **ORM:** Drizzle
 - **Auth:** Clerk
+- **HTTP Client:** Axios (all client-side API calls use axios, not fetch)
 - **AI Voice:** OpenAI Realtime API (WebSocket)
 - **Fallback:** Whisper API + GPT + TTS API
 

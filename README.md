@@ -109,6 +109,36 @@ No auth, no database. Just prove voice works.
 
 ---
 
+## Development
+
+### Prerequisites
+
+- Node.js 20+
+- Docker
+- pnpm
+
+### Installation
+
+```bash
+git clone <repository-url>
+pnpm install
+cp .env.example .env.local
+docker compose up -d
+pnpm db:migrate
+```
+
+### Running the app
+
+```bash
+pnpm dev
+```
+
+Open http://localhost:3000 in your browser.
+
+See [SETUP.md](./SETUP.md) for detailed configuration and troubleshooting.
+
+---
+
 ## Core Principles
 
 1. **Learning by building** - No forced courses, learn what's needed when needed

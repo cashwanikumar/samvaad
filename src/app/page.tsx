@@ -5,7 +5,7 @@ export default function Home() {
     <main className="min-h-screen flex flex-col items-center justify-center gap-6 p-8">
       <div className="text-center space-y-3">
         <h1 className="text-4xl font-bold tracking-tight">Samvaad</h1>
-        <p className="text-gray-400 text-lg">Practice interviews out loud, with an AI that pushes back</p>
+        <p className="text-gray-400 text-lg">Practice out loud. The AI pushes back.</p>
       </div>
 
       <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 max-w-md w-full space-y-4">

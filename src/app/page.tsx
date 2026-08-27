@@ -2,9 +2,9 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center gap-6 p-8 bg-white">
-      <div className="text-center flex flex-col gap-7 p-5">
-        <h1 className="text-4xl font-bold tracking-tight">Samvaad</h1>
+    <main className="min-h-screen flex flex-col items-center justify-center gap-6 p-8">
+      <div className="text-center space-y-3">
+        <h1 className="text-4xl font-bold tracking-tight text-[rgb(88,86,202)]">Samvaad Title</h1>
         <p className="text-gray-400 text-lg">Practice interviews out loud, with an AI that pushes back</p>
       </div>
 
@@ -19,7 +19,7 @@ export default function Home() {
         </p>
         <Link
           href="/interview"
-          className="block w-full bg-red-500 text-white font-semibold text-center py-3 rounded-xl hover:bg-red-600 transition-colors"
+          className="block w-full bg-white text-gray-900 font-semibold text-center py-3 rounded-xl hover:bg-gray-100 transition-colors"
         >
           Start Interview
         </Link>

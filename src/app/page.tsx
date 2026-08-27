@@ -10,7 +10,7 @@ export default function Home() {
 
       <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 max-w-lg w-full space-y-4">
         <div className="space-y-1">
-          <h2 className="font-semibold text-lg mb-[60px]">System Design Interview</h2>
+          <h2 className="font-semibold text-lg mb-[52px]">System Design Interview</h2>
           <p className="text-gray-400 text-sm">Design WhatsApp — 30 minutes</p>
         </div>
         <p className="text-gray-500 text-sm">

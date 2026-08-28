@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center gap-6 p-8">
+    <main className="min-h-screen flex flex-col items-center justify-center gap-[26px] p-8">
       <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 max-w-md w-full">
         <div className="text-center space-y-3">
           <h1 className="text-4xl font-bold tracking-tight">Samvaad Todo</h1>

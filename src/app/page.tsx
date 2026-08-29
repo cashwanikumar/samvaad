@@ -19,7 +19,7 @@ export default function Home() {
         </p>
         <Link
           href="/interview"
-          className="block w-full bg-white text-gray-900 font-semibold text-center py-3 rounded-xl hover:bg-gray-100 transition-colors"
+          className="block w-full bg-[red] text-gray-900 font-semibold text-center py-3 rounded-xl hover:bg-gray-100 transition-colors"
         >
           Start Interview
         </Link>

@@ -5,7 +5,7 @@ export default function Home() {
     <main className="min-h-screen flex flex-col items-center justify-center gap-[26px] p-8">
       <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center space-y-3">
         <h1 className="text-4xl font-bold tracking-tight text-[rgb(88,86,202)]">Samvaad Todo</h1>
-        <p className="text-gray-400 text-lg">Practice interviews out loud, with an AI that pushes back</p>
+        <p className="text-gray-400 text-lg bg-white">Practice interviews out loud, with an AI that pushes back</p>
       </div>
 
       <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 w-[50vw] space-y-4">

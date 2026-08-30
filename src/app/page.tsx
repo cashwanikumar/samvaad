@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center gap-6 p-8">
       <div className="text-center space-y-3">
-        <h1 className="text-4xl font-bold tracking-tight text-[rgb(88,86,202)]">Samvaad Title</h1>
+        <h1 className="text-4xl font-bold tracking-tight text-[rgb(88,86,202)]">Samvaad Title more</h1>
         <p className="text-gray-400 text-lg">Practice interviews out loud, with an AI that pushes back</p>
       </div>
 
